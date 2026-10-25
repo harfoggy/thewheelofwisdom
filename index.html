@@ -1,0 +1,241 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Wheel of Wisdom · Get Spun</title>
+<meta name="description" content="Get your soulmate spun by The Wheel of Wisdom. One spin per person, per season.">
+<meta name="theme-color" content="#15120f">
+<link rel="icon" href="logo.jpg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=IBM+Plex+Mono:wght@400;600&display=swap" rel="stylesheet">
+<script>
+  // ===== AYARLAR (Harun): fiyatlar ve satın alma linkleri. Link boşsa düğme "Soon" yazar. =====
+  const PAKETLER = {
+    spin:      { fiyat: 19, link: "" },
+    spin_plus: { fiyat: 39, link: "" },
+    legendary: { fiyat: 99, link: "" },
+  };
+</script>
+<style>
+  :root {
+    --zemin: #15120f; --pano: #0d0b09; --cizgi: #2f2821; --soluk: #a59b8c;
+    --krem: #f1e6cf; --murekkep: #1b1612; --kirmizi: #c8452c; --altin: #d9a83f; --amber: #f0b44c;
+    --grenli: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='.33 .33 .33 0 0 .33 .33 .33 0 0 .33 .33 .33 0 0 0 0 0 1 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    color-scheme: dark;
+  }
+  * { box-sizing: border-box; margin: 0; }
+  html { background: var(--zemin); }
+  body { font-family: "IBM Plex Mono", ui-monospace, monospace; color: var(--krem); line-height: 1.5; min-height: 100vh; position: relative; }
+  body::before { content: ""; position: fixed; inset: 0; z-index: 1; background: var(--grenli); opacity: .07; pointer-events: none; }
+  a { color: inherit; }
+  .kap { max-width: 760px; margin: 0 auto; padding: 0 16px; position: relative; z-index: 2; }
+
+  /* arka plan: Season 1 kartları yavaşça kayar */
+  .arka { position: fixed; inset: 0; z-index: 0; overflow: hidden; pointer-events: none; }
+  .arka-ic { position: absolute; inset: -25% -15%; display: flex; justify-content: center; gap: 16px; transform: rotate(-8deg); }
+  .sutun { flex: none; width: clamp(110px, 15vw, 200px); animation: akis var(--sure) linear infinite; }
+  .sutun.ters { animation-direction: reverse; }
+  .sutun img { display: block; width: 100%; aspect-ratio: 9 / 16; object-fit: cover; border-radius: 10px; margin-bottom: 16px; }
+  @keyframes akis { to { transform: translateY(-50%); } }
+  .arka::after { content: ""; position: absolute; inset: 0;
+                 background: radial-gradient(ellipse 55% 75% at 50% 45%, rgba(21,18,15,.9), rgba(21,18,15,.7) 70%, rgba(21,18,15,.55)); }
+  @media (max-width: 560px) { .arka::after { background: rgba(21,18,15,.8); } .sutun:nth-child(n+5) { display: none; } }
+  :focus-visible { outline: 2px solid var(--amber); outline-offset: 3px; }
+  .anton { font-family: Anton, Impact, sans-serif; font-weight: 400; letter-spacing: .01em; }
+
+  .marka { display: flex; align-items: center; gap: 12px; padding: 22px 0 0; font-size: .8rem; letter-spacing: .08em; }
+  .marka img { width: 42px; height: 42px; border-radius: 50%; border: 2px solid var(--altin); }
+  .marka small { display: block; color: var(--soluk); letter-spacing: 0; }
+
+  h1 { font: 400 clamp(3rem, 13vw, 6.2rem)/.92 Anton, Impact, sans-serif; text-transform: uppercase; margin-top: 30px; }
+  h1 span { color: var(--kirmizi); }
+  .sezon { margin: 20px 0 0; padding: 10px 0; border-top: 2px dashed var(--cizgi); border-bottom: 2px dashed var(--cizgi);
+           color: var(--amber); font-weight: 600; font-size: .86rem; letter-spacing: .12em; text-transform: uppercase; }
+
+  /* biletler */
+  .biletler { display: grid; gap: 22px; margin-top: 30px; }
+  .bilet-kap { filter: drop-shadow(0 12px 18px rgba(0,0,0,.5)); transition: transform .2s ease; }
+  .bilet-kap:nth-child(1) { transform: rotate(-.6deg); } .bilet-kap:nth-child(2) { transform: rotate(.5deg); } .bilet-kap:nth-child(3) { transform: rotate(-.4deg); }
+  .bilet-kap:hover { transform: rotate(0) translateY(-3px); }
+  .bilet { --kocan: 190px; --c: 13px; --zem: var(--krem); --yazi: var(--murekkep);
+           position: relative; display: grid; grid-template-columns: 1fr var(--kocan); color: var(--yazi); background: var(--zem);
+           box-shadow: inset 0 0 0 7px var(--zem), inset 0 0 0 8px color-mix(in srgb, var(--yazi) 30%, transparent);
+           -webkit-mask: radial-gradient(circle var(--c) at calc(100% - var(--kocan)) 0, #0000 97%, #000) top / 100% 51% no-repeat,
+                         radial-gradient(circle var(--c) at calc(100% - var(--kocan)) 100%, #0000 97%, #000) bottom / 100% 51% no-repeat;
+                   mask: radial-gradient(circle var(--c) at calc(100% - var(--kocan)) 0, #0000 97%, #000) top / 100% 51% no-repeat,
+                         radial-gradient(circle var(--c) at calc(100% - var(--kocan)) 100%, #0000 97%, #000) bottom / 100% 51% no-repeat; }
+  .bilet::before { content: ""; position: absolute; inset: 0; background: var(--grenli); opacity: .16; mix-blend-mode: multiply; pointer-events: none; }
+  .bilet.plus { --zem: var(--kirmizi); --yazi: var(--krem); }
+  .bilet.efsane { --zem: var(--altin); }
+  .govde { position: relative; padding: 24px 22px 22px 26px; }
+  .ust-yazi { font-size: .72rem; font-weight: 600; letter-spacing: .16em; text-transform: uppercase; opacity: .75; }
+  .bilet h2 { font: 400 clamp(2.4rem, 8vw, 3.2rem)/1 Anton, Impact, sans-serif; text-transform: uppercase; margin-top: 6px; }
+  .bilet ul { list-style: none; padding: 0; margin-top: 12px; display: grid; gap: 5px; font-size: .9rem; }
+  .bilet li::before { content: "— "; opacity: .6; }
+  .kocan { position: relative; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px; text-align: center;
+           padding: 22px 16px; border-left: 2px dashed color-mix(in srgb, var(--yazi) 45%, transparent); }
+  .tutar { font: 400 3.3rem/1 Anton, Impact, sans-serif; }
+  .bekleme { font-size: .72rem; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; opacity: .8; min-height: 1.1em; }
+  .al { display: flex; align-items: center; justify-content: center; width: 100%; min-height: 48px; text-decoration: none; cursor: pointer;
+        font: 400 1.25rem Anton, Impact, sans-serif; letter-spacing: .08em; color: var(--krem); background: var(--murekkep); border-radius: 4px;
+        transition: transform .15s ease; }
+  .al:hover { transform: scale(1.03); }
+  .plus .al { color: var(--murekkep); background: var(--krem); }
+  .al[aria-disabled="true"], .plus .al[aria-disabled="true"] { cursor: not-allowed; transform: none; color: inherit; background: transparent;
+                              border: 2px dashed color-mix(in srgb, currentColor 55%, transparent); }
+  .seri { font-size: .64rem; letter-spacing: .14em; opacity: .6; }
+  .damga { position: absolute; top: 16px; right: 16px; transform: rotate(-9deg); padding: 3px 10px; border: 3px solid currentColor; border-radius: 4px;
+           font: 400 1.05rem Anton, Impact, sans-serif; letter-spacing: .1em; text-transform: uppercase; opacity: .88; }
+  .plus .damga { color: var(--murekkep); }
+  .efsane .damga { color: var(--kirmizi); }
+  @media (max-width: 560px) {
+    .bilet { --kocan: 122px; --c: 11px; }
+    .govde { padding: 20px 14px 18px 18px; }
+    .bilet ul { font-size: .8rem; }
+    .kocan { padding: 18px 10px; }
+    .tutar { font-size: 2.5rem; }
+    .damga { position: static; display: inline-block; margin-top: 12px; transform: rotate(-6deg); font-size: .9rem; padding: 2px 8px; }
+  }
+
+  /* sıra panosu */
+  .pano { margin-top: 44px; background: var(--pano); border: 1px solid var(--cizgi); border-radius: 6px; padding: 18px 18px 14px; color: var(--amber);
+          text-transform: uppercase; }
+  .pano h3 { font: 400 1.1rem Anton, Impact, sans-serif; letter-spacing: .14em; color: var(--krem); display: flex; align-items: center; gap: 10px; margin: 0 0 8px; }
+  .pano h3:not(:first-child) { margin-top: 16px; }
+  .nokta { width: 9px; height: 9px; border-radius: 50%; background: var(--kirmizi); animation: nabiz 1.4s ease-in-out infinite; }
+  @keyframes nabiz { 50% { opacity: .25; } }
+  .satir { display: grid; grid-template-columns: 3.2em 1fr auto 5.2em; gap: 10px; padding: 7px 0; border-top: 1px dashed var(--cizgi);
+           font-size: .88rem; font-weight: 600; letter-spacing: .04em; }
+  .satir .no { color: var(--soluk); } .satir .gun { text-align: right; color: var(--soluk); }
+  .p-legendary { color: var(--altin); } .p-spin_plus { color: #f08a6f; } .p-spin { color: var(--soluk); }
+  .pano .bos, .pano .daha { color: var(--soluk); font-size: .82rem; padding-top: 8px; border-top: 1px dashed var(--cizgi); }
+  @media (max-width: 560px) { .satir { grid-template-columns: 2.4em 1fr auto; font-size: .78rem; } .satir .gun { display: none; } }
+
+  .kurallar { list-style: none; padding: 0; margin-top: 30px; display: grid; gap: 10px; font-size: .84rem; color: var(--soluk); }
+  .kurallar b { color: var(--krem); text-transform: uppercase; letter-spacing: .06em; }
+  .kurallar .uyari b { color: #ec6a4f; }
+  footer { margin-top: 40px; padding: 22px 0 40px; border-top: 2px dashed var(--cizgi); color: var(--soluk); font-size: .8rem; display: flex; flex-wrap: wrap; gap: 6px 18px; }
+  footer a { text-decoration: none; } footer a:hover { color: var(--krem); }
+  /* az hareket isteyende her şey durur; arka plandaki kartlar yalnız çok yavaşlar */
+  @media (prefers-reduced-motion: reduce) {
+    *:not(.sutun) { transition: none !important; animation: none !important; }
+    .sutun { animation-duration: calc(var(--sure) * 1.5); }
+  }
+</style>
+</head>
+<body>
+<div class="arka" aria-hidden="true"><div class="arka-ic" id="arka"></div></div>
+<main class="kap">
+  <div class="marka"><img src="logo.jpg" alt="" width="42" height="42"><div>THE WHEEL OF WISDOM<small>@thewheelofwisdom</small></div></div>
+
+  <h1>Get your soulmate <span>spun.</span></h1>
+  <p class="sezon">One spin per person, per season. Free spins count too. Choose wisely.</p>
+
+  <div class="biletler">
+    <div class="bilet-kap"><article class="bilet" data-paket="spin">
+      <div class="govde">
+        <p class="ust-yazi">Admit one · Season 2</p>
+        <h2>Spin</h2>
+        <ul><li>Your wheel video on our page</li><li>Soulmate card at the end</li><li>We tag you</li><li>Posted within 30 days</li></ul>
+      </div>
+      <div class="kocan"><p class="tutar">$19</p><p class="bekleme" data-bekleme="spin"></p><a class="al" href="#">Buy</a><p class="seri">Nº S2-SP</p></div>
+    </article></div>
+
+    <div class="bilet-kap"><article class="bilet plus" data-paket="spin_plus">
+      <div class="govde">
+        <p class="ust-yazi">Admit one · Season 2</p>
+        <h2>Spin+</h2>
+        <ul><li>Everything in Spin</li><li>Posted within 3 days</li><li>Animated soulmate card</li></ul>
+        <span class="damga">Most picked</span>
+      </div>
+      <div class="kocan"><p class="tutar">$39</p><p class="bekleme" data-bekleme="spin_plus"></p><a class="al" href="#">Buy</a><p class="seri">Nº S2-SP+</p></div>
+    </article></div>
+
+    <div class="bilet-kap"><article class="bilet efsane" data-paket="legendary">
+      <div class="govde">
+        <p class="ust-yazi">Admit one · Season 2</p>
+        <h2>Legendary</h2>
+        <ul><li>Everything in Spin+</li><li>Posted within 24 hours</li><li>Your own slice on a wheel</li><li>Your name in the Hall of Legends</li></ul>
+        <span class="damga">Limited</span>
+      </div>
+      <div class="kocan"><p class="tutar">$99</p><p class="bekleme" data-bekleme="legendary">1 spot a day</p><a class="al" href="#">Buy</a><p class="seri">Nº S2-LGD</p></div>
+    </article></div>
+  </div>
+
+  <section class="pano" aria-label="Spin queue">
+    <div id="pano"></div>
+  </section>
+
+  <ul class="kurallar">
+    <li><b>The wheel decides.</b> You buy a spin, not a result. No respins.</li>
+    <li class="uyari"><b>Weird requests get rejected.</b> Fetish, sexual, hateful or real-person stuff. Keep it SFW.</li>
+    <li><b>Late? Full refund.</b> Miss your ticket's window and you get your money back.</li>
+  </ul>
+
+  <footer>
+    <a href="https://instagram.com/thewheelofwisdom">@thewheelofwisdom</a>
+    <a href="mailto:contact.thewheelofwisdom@gmail.com">contact.thewheelofwisdom@gmail.com</a>
+  </footer>
+</main>
+
+<script>
+  const $ = (s, el = document) => el.querySelector(s);
+  const AD = { spin: "Spin", spin_plus: "Spin+", legendary: "Legendary" };
+
+  // Arka plan: site/arka/<ad>.webp (yalnız kız kartları). Her sütun listeyi farklı yerden başlatır, iki kez yazılır ki döngü dikişsiz olsun.
+  const ARKA = ["melanie", "sam", "trinity", "ravenna", "mika", "amelia", "lumen", "isadora", "casey", "hazel"];
+  $("#arka").innerHTML = Array.from({ length: 7 }, (_, i) => {
+    const sira = ARKA.slice(i * 3 % ARKA.length).concat(ARKA.slice(0, i * 3 % ARKA.length));
+    const resimler = sira.map((ad) => `<img src="arka/${ad}.webp" alt="" width="320" height="569" decoding="async">`).join("");
+    return `<div class="sutun${i % 2 ? " ters" : ""}" style="--sure:${90 + i * 9}s">${resimler}${resimler}</div>`;
+  }).join("");
+  const gunYaz = (iso) => new Date(iso + "T12:00:00").toLocaleDateString("en-US", { month: "short", day: "numeric" });
+  const yaklasik = (g) => g <= 0 ? "Next: today" : g === 1 ? "Next: tomorrow" : `Next: ~${g} days`;
+  const PANO_SATIR = 6;
+
+  const acik = Object.values(PAKETLER).some((p) => p.link);
+  for (const [anahtar, p] of Object.entries(PAKETLER)) {
+    const kart = $(`[data-paket="${anahtar}"]`);
+    $(".tutar", kart).textContent = `$${p.fiyat}`;
+    const al = $(".al", kart);
+    if (p.link) { al.href = p.link; al.target = "_blank"; al.rel = "noopener"; }
+    else { al.removeAttribute("href"); al.setAttribute("aria-disabled", "true"); al.title = "Opens with Season 2"; al.textContent = "Soon"; }
+  }
+
+  // Sıra panosu ve bekleme: site/kuyruk.json (`python -m siparis site` yazar); ?demo örnek veri
+  const DEMO = { legendary_bugun_tukendi: true, bekleme_gun: { spin: 6, spin_plus: 1 },
+    sira: [{ kullanici: "riz•••", paket: "legendary", gun: "2026-11-07", durum: "yapiliyor" },
+           { kullanici: "mik•••", paket: "spin_plus", gun: "2026-11-08", durum: "bekliyor" },
+           { kullanici: "yab•••", paket: "spin_plus", gun: "2026-11-08", durum: "bekliyor" },
+           { kullanici: "t0t•••", paket: "spin", gun: "2026-11-09", durum: "bekliyor" },
+           { kullanici: "sto•••", paket: "spin", gun: "2026-11-09", durum: "bekliyor" },
+           { kullanici: "ara•••", paket: "spin", gun: "2026-11-10", durum: "bekliyor" },
+           { kullanici: "kev•••", paket: "spin", gun: "2026-11-10", durum: "bekliyor" },
+           { kullanici: "lun•••", paket: "spin", gun: "2026-11-11", durum: "bekliyor" }] };
+
+  const satir = (r, i) => `<div class="satir"><span class="no">#${i + 1}</span><span>@${r.kullanici ?? "•••"}</span>
+      <span class="p-${r.paket}">${AD[r.paket]}</span><span class="gun">${r.durum === "yapiliyor" ? "" : gunYaz(r.gun)}</span></div>`;
+
+  function ciz(v) {
+    const simdi = v.sira.filter((r) => r.durum === "yapiliyor"), sonra = v.sira.filter((r) => r.durum !== "yapiliyor");
+    const gorunen = sonra.slice(0, Math.max(0, PANO_SATIR - simdi.length)), kalan = sonra.length - gorunen.length;
+    $("#pano").innerHTML = !v.sira.length
+      ? `<h3>Up next</h3><p class="bos">Line is empty. Be first.</p>`
+      : (simdi.length ? `<h3><i class="nokta"></i>Now spinning</h3>` + simdi.map(satir).join("") : "")
+        + (gorunen.length ? `<h3>Up next</h3>` + gorunen.map((r, i) => satir(r, simdi.length + i)).join("") : "")
+        + (kalan > 0 ? `<p class="daha">+${kalan} more in line</p>` : "");
+    if (!acik && !demo) return;
+    $('[data-bekleme="spin"]').textContent = yaklasik(v.bekleme_gun.spin);
+    $('[data-bekleme="spin_plus"]').textContent = yaklasik(v.bekleme_gun.spin_plus);
+    $('[data-bekleme="legendary"]').textContent = v.legendary_bugun_tukendi ? "Today's spot: taken" : "Today's spot: open";
+  }
+
+  const demo = new URLSearchParams(location.search).has("demo");
+  (demo ? Promise.resolve(DEMO) : fetch("kuyruk.json", { cache: "no-store" }).then((r) => r.ok ? r.json() : Promise.reject()))
+    .then(ciz)
+    .catch(() => ciz({ sira: [], bekleme_gun: { spin: 0, spin_plus: 0 } }));
+</script>
+</body>
+</html>
